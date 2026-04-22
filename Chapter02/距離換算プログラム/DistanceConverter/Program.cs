@@ -1,31 +1,31 @@
 ﻿
-namespace DistanceConverter
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            if (args.Length >= 1 && args[0] == "-tom")
-            {
-                printFeetToMeterList(10, 30);  //メートルへの変換
+namespace DistanceConverter {
+    internal class Program {
+        static void Main(string[] args) {
+
+            if (args.Length == 3
+                && int.TryParse(args[1], out int start) && int.TryParse(args[2], out int end)) {
+
+
+                if (args[0] == "-tom") {
+                    printFeetToMeterList(start, end);  //メートルへの変換
+                }
+                else if (args.Length >= 1 && args[0] == "-tof") {
+                    printMeterToFeetList(start, end);
+                }
+                else {
+                    Console.WriteLine("error");
+                }
             }
-            else if (args.Length >= 1 && args[0] == "-tof")
-            {
-                printMeterToFeetList(5, 15);
-            }
-            else
-            {
+            else {
                 Console.WriteLine("error");
             }
 
-
         }
 
-        private static void printMeterToFeetList(int start, int stop)
-        {
+        private static void printMeterToFeetList(int start, int stop) {
             //メートルからフィートへの対応表を出力
-            for (int meter = start; meter <= stop; meter++)
-            {
+            for (int meter = start; meter <= stop; meter++) {
                 double feet = MeterToFeet(meter);
                 Console.WriteLine($"{meter}m = {feet:0.0000}ft");
             }
@@ -33,23 +33,19 @@ namespace DistanceConverter
         }
 
         //フィートからメートルを求める
-        static double FeetToMeter(int feet)
-        {
+        static double FeetToMeter(int feet) {
             return feet * 0.3048;
         }
         //メートルからフィートを求める
-        static double MeterToFeet(int meter)
-        {
+        static double MeterToFeet(int meter) {
             return meter / 0.3048;
         }
 
 
 
-        static void printFeetToMeterList(int start, int stop)
-        {
+        static void printFeetToMeterList(int start, int stop) {
             //フィートからメートルへの対応表を出力
-            for (int feet = start; feet <= stop; feet++)
-            {
+            for (int feet = start; feet <= stop; feet++) {
                 double meter = FeetToMeter(feet);
                 Console.WriteLine($"{feet}ft = {meter:0.0000}m");
             }
