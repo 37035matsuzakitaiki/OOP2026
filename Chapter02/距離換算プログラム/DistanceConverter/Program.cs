@@ -22,27 +22,32 @@ namespace DistanceConverter {
             }
 
         }
-
-
-        static void printMeterToFeetList(int start, int stop) {
-
+        FeetConverter converter = new FeetConverter();
+       
+         static void printMeterToFeetList(int start, int stop) {
+            FeetConverter converter = new FeetConverter();
             //メートルからフィートへの対応表を出力
             for (int meter = start; meter <= stop; meter++) {
-                double feet = FeetConverter.FromMeter(meter);
+                double feet = converter.FromMeter(meter);
                 Console.WriteLine($"{meter}m = {feet:0.0000}ft");
             }
 
         }
         static void printFeetToMeterList(int start, int stop) {
-
+            FeetConverter converter = new FeetConverter();
 
             //フィートからメートルへの対応表を出力
             for (int feet = start; feet <= stop; feet++) {
-                double meter = FeetConverter.ToMeter(feet);
+                double meter =converter.ToMeter(feet);
                 Console.WriteLine($"{feet}ft = {meter:0.0000}m");
             }
 
         }
+
+       
+
+
+
 
     }
 }
