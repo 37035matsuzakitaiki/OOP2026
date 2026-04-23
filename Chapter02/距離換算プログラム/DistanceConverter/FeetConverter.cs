@@ -15,7 +15,7 @@ namespace DistanceConverter {
         }
             //フィートからメートルを求める
             public double ToMeter(double feet) {
-                return feet * raito;
+                return feet * 0.3048;
             }
         
     }
