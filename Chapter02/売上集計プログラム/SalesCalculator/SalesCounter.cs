@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 namespace SalesCalculator {
     //売上集計クラス
     public class SalesCounter {
-        private readonly List<Sale> _sales;
-
+        private readonly IEnumerable<Sale> _sales;
         
-
-
         //コンストラクタ
         public SalesCounter(string filePath) {
             _sales = ReadSales(filePath);
         }
-        public List<Sale> ReadSales(string filePath) {
+
+
+
+
+        public IEnumerable<Sale> ReadSales(string filePath) {
             List<Sale> sales = new List<Sale>();  //リスト
             string[] lines = File.ReadAllLines(filePath);
             foreach (string line in lines) {
@@ -31,8 +32,8 @@ namespace SalesCalculator {
             return sales;
         }
         //店舗別売り上げを求める
-        public Dictionary<string, int> GetPerStoreSales() {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
+        public IDictionary<string, int> GetPerStoreSales() {
+            SortedDictionary<string, int> dict = new SortedDictionary<string, int>();
 
             foreach(var sale in _sales) {
                 if (dict.ContainsKey(sale.ShopName))//既に店舗名が辞書のキーに登録されているか？
