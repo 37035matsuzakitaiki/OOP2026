@@ -10,11 +10,18 @@ namespace Exercise01 {
                 new Song("Honesty", "Billy Joel", 231),
                 new Song("I Will Always Love You", "Whitney Houston", 273),
             };
-            //PrintSongs(songs);
+            PrintSongs(songs);
         }
 
-        //public static void PrintSongs(Song[] songs) {
-        //   var Song = new PrintSongs(@"Title\ArttistName\Length"); 
-        //}
+        public static void PrintSongs(Song[] songs) {
+            foreach (var Song in songs) {
+                //  new PrintSongs(@"Title\ArttistName\Length");
+                
+                int mm = Song.Length / 60;
+                int ss = Song.Length % 60;
+                Console.WriteLine($"{Song.Title},{Song.ArtistName},{mm}:{ss:00}");
+                
+            }
+        }
     }
 }
