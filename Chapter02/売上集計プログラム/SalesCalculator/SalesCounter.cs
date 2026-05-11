@@ -18,11 +18,11 @@ namespace SalesCalculator {
 
 
         public IEnumerable<Sale> ReadSales(string filePath) {
-            List<Sale> sales = new List<Sale>();  //リスト
-            string[] lines = File.ReadAllLines(filePath);
-            foreach (string line in lines) {
-                string[] items = line.Split(',');  //カンマ区切りで分割
-                Sale sale = new Sale {
+            var sales = new List<Sale>();  //リスト
+            var lines = File.ReadAllLines(filePath);
+            foreach (var line in lines) {
+                var items = line.Split(',');  //カンマ区切りで分割
+                var sale = new Sale {
                     ShopName = items[0],
                     ProductCategory = items[1],
                     Amount = int.Parse(items[2])
@@ -33,10 +33,11 @@ namespace SalesCalculator {
         }
         //店舗別売り上げを求める
         public IDictionary<string, int> GetPerStoreSales() {
-            SortedDictionary<string, int> dict = new SortedDictionary<string, int>();
+           var dict = new SortedDictionary<string, int>();
 
             foreach(var sale in _sales) {
-                if (dict.ContainsKey(sale.ShopName))//既に店舗名が辞書のキーに登録されているか？
+                //既に店舗名が辞書のキーに登録されているか？
+                if (dict.ContainsKey(sale.ShopName))
                     //登録されている場合
                     dict[sale.ShopName] += sale.Amount;//売り上げを足しこみ
                 else
