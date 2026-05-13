@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 namespace Exercise02 {
     internal class InchConverter {
         
-        //フィートからメートルを求める
-        public static double ToMeter(double Inch) {
-            return Inch * 0.0254;
+        //インチからメートルを求める
+        public static double FromMeter(double inch) {
+            return inch * 0.0254;
+        }
+
+        //インチからメートルを求める
+        public static double ToMeter(double inch) {
+            return inch * 0.0254;
         }
 
     }

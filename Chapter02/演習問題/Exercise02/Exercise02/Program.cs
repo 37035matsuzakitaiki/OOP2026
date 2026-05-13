@@ -14,7 +14,12 @@
 
         //インチからメートルへの対応表を出力
         private static void PrintFeetToMeterList(int start, int end) {
-            Console.Write("");
+            for (int feet = start; feet <= end; feet++) {
+                double meter = InchConverter.ToMeter(feet);
+                Console.WriteLine($"{feet}ft = {meter:0.0000}m");
+            }
+
+           // Console.Write("");
         }
        
             
