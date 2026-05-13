@@ -10,7 +10,7 @@ namespace Exercise01 {
             //    new Song("Honesty", "Billy Joel", 231),
             //    new Song("I Will Always Love You", "Whitney Houston", 273),
             //};
-            
+
 
             var songs = new List<Song>();
             while (true) {
@@ -20,7 +20,7 @@ namespace Exercise01 {
                 if (title == "end") {
                     Console.Write("おわり");
                     break;
-                } else {                  
+                } else {
                     Console.Write("アーティスト名：");
                     string? srtistname = Console.ReadLine();
 
@@ -29,13 +29,13 @@ namespace Exercise01 {
                     Song song = new Song(title, srtistname, length);
                     songs.Add(song);
                 }
-                
+
             }
 
 
 
 
-           
+
             PrintSongs(songs);
 
         }

@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercise02 {
+    internal class InchConverter {
+        
+        //フィートからメートルを求める
+        public static double ToMeter(double Inch) {
+            return Inch * 0.0254;
+        }
+
+    }
+}
