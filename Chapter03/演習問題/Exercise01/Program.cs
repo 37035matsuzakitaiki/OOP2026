@@ -49,7 +49,11 @@ namespace Exercise01 {
         }
 
         private static void Exercise4(List<int> numbers) {
-           
+            //問題３．１．４完成
+            var select = numbers.Select(t => t * 2);
+            foreach(var item in select) {
+                Console.WriteLine(item);
+            }
         }
     }
 }
