@@ -22,6 +22,7 @@ namespace Exercise01 {
         }
 
         private static void Exercise1(List<int> numbers) {
+            Console.WriteLine("問題3.1.1完成");
             var exists = numbers.Exists(t => t%8==0||t%9==0);
             if (exists==true) {
                 Console.WriteLine("存在");
@@ -30,13 +31,21 @@ namespace Exercise01 {
         }
 
         private static void Exercise2(List<int> numbers) {
+            Console.WriteLine("問題3.1.2完成");
             foreach (var item in numbers) {
-                Console.WriteLine(item/2);
+                Console.WriteLine(item/2.0);
             } 
         }
 
         private static void Exercise3(List<int> numbers) {
+            Console.WriteLine("問題3.1.3完成");
+            var query = numbers.Where(t => t >= 50);
+            foreach (var item in query) {
+                Console.WriteLine(item);
+            }
            
+
+
         }
 
         private static void Exercise4(List<int> numbers) {
