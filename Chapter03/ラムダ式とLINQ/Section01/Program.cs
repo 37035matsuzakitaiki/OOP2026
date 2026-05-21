@@ -13,7 +13,9 @@
                 "Hong Kong",
             };
                               //↓Countにすると文字個数を表示できる
-            var exists = cities.Exists(s => 6 <= s.Length && s.Contains('o') &&s.EndsWith('n'));
+            var exists = cities.Exists(s => 6 <= s.Length 
+            && s.Contains('o')
+            &&s.EndsWith('n'));
             Console.WriteLine(exists);
 
             var lowerList = cities.ConvertAll(s => s.ToLower());
