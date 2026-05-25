@@ -54,12 +54,15 @@ namespace Exercise02 {
 
         private static void Exercise2_4(List<string> cities) {
             //できたらGitのコメント「問題3.2.4完成」
-            var select = cities.Where(s => s.Contains('B'));
-            var count = select.Count();
-            foreach (var item in select) {
-                Console.WriteLine(item.Length);
+            var obj = cities.Where(s => s.StartsWith('B')).Select(s =>new { s, s.Length });
+            //var select = cities.Where(s => s.Contains('B'));
+            //var count = select.Count();
+            //foreach (var item in select) {
+            //    Console.WriteLine(item.Length);
+            //}
+            foreach (var data in obj) {
+                Console.WriteLine(data.s + ":" + data.Length + "文字");
             }
-           
 
         }
     }
