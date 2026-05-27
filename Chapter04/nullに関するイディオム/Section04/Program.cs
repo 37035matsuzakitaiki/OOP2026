@@ -40,6 +40,23 @@ namespace Section04 {
 
 
             #endregion
+
+            #region 2つの要素を入れ替える
+            int a = 10;
+            int b = 20;
+            int c = 30;
+            Console.WriteLine("入れ替え前");
+            Console.WriteLine("a=" + a + "b=" + b + "c=" + c);
+            int num = a;
+             a = b;
+             b = num;
+
+            (b, a ,c) = (100, 200, 999);
+
+
+            Console.WriteLine("入れ替え後");
+            Console.WriteLine("a=" + a + "b=" + b + "c="+ c);
+            #endregion
         }
 
         private static string? DefaultMessage() {
