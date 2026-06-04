@@ -23,7 +23,7 @@ namespace Exercise02 {
             Console.WriteLine("5.2.5");
             Exercise5(ymCollection);
         }
-
+        //5.2.2
         private static void Exercise2(YearMonth[] ymCollection) {
             foreach (var ym in ymCollection) {
                 Console.WriteLine(ym);
@@ -39,7 +39,7 @@ namespace Exercise02 {
             }
             return null;  //21世紀が見つからなかった場合
         }
-
+        //5.2.4
         private static void Exercise4(YearMonth[] ymCollection) {
             Console.WriteLine();
             var ym = FindFirst21C(ymCollection);
@@ -49,9 +49,10 @@ namespace Exercise02 {
                 Console.WriteLine("21世紀のデータはありません");
             
         }
-
+        //5.2.5
         private static void Exercise5(YearMonth[] ymCollection) {
-            
+            var array = ymCollection.Select(ym => ym.AddOneMonth()).ToArray();
+            Exercise2(array);
         }
     }
 }
