@@ -30,6 +30,10 @@ namespace Exercise02 {
             }
             
         }
+        //5.2.3
+        private static YearMonth? FindFirst21C(YearMonth[] ymCollection) {
+
+        }
 
         private static void Exercise4(YearMonth[] ymCollection) {
             
