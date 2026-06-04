@@ -1,4 +1,6 @@
 ﻿
+using Exercise01;
+
 namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
@@ -23,6 +25,9 @@ namespace Exercise02 {
         }
 
         private static void Exercise2(YearMonth[] ymCollection) {
+            foreach (var ym in ymCollection) {
+                Console.WriteLine(ym);
+            }
             
         }
 
