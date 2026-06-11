@@ -89,7 +89,11 @@ namespace Exercise03 {
             foreach (var num in array) {
                 Console.WriteLine(num);
             }
-
+            //'a'から順にカウントして集計
+           //chがa~zまで変化してCWの中身がかわるから一文ずつカウントして出力できる
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                Console.WriteLine($"{ch}:{str.Count(a => a == ch)}");
+            }
         }
     }
 }
