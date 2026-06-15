@@ -53,9 +53,15 @@ namespace Exercise03 {
                 sb.Append(word);
                 
             }
-            
 
-           
+            //for (int i = 0; i < array.Length; i++) {
+            //    sb.Append(" ");
+            //    sb.Append(array);
+            //}
+
+
+
+            
             Console.WriteLine(sb + ".");
 
         }
