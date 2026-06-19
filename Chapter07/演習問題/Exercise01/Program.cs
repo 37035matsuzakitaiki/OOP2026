@@ -35,10 +35,9 @@ namespace Exercise01 {
             Console.WriteLine(result2);
 
 
-            //var length = numbers.Where(x => x > 0).TakeLast(2);
-            //    //TakeLast(2).ToArray();           
-            //    Console.WriteLine("配列の最後から二つの要素：" +
-            //      $"{ numbers[0]}:{ numbers[1]}");
+            foreach (var item in numbers.TakeLast(2)) {
+                Console.WriteLine(item);
+            }
         }
 
         private static void Exercise3(int[] numbers) {
@@ -58,7 +57,7 @@ namespace Exercise01 {
         }
 
         private static void Exercise5(int[] numbers) {
-            var result = numbers.Distinct().Count(x => x >= 10);                
+            var result = numbers.Distinct().Count(x => x > 10);                
             Console.WriteLine(result);
         }
     }
