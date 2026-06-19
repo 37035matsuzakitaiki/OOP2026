@@ -50,7 +50,7 @@ namespace Exercise01 {
         }
 
         private static void Exercise4(int[] numbers) {
-            var result = numbers.Distinct().Take(3);
+            var result = numbers.OrderBy(x=>x).Take(3);
             foreach (var item in result) {
                 Console.WriteLine(item);
             }
@@ -58,7 +58,8 @@ namespace Exercise01 {
         }
 
         private static void Exercise5(int[] numbers) {
-
+            var result = numbers.Distinct().Count(x => x >= 10);                
+            Console.WriteLine(result);
         }
     }
 }
