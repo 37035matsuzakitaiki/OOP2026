@@ -50,7 +50,11 @@ namespace Exercise01 {
         }
 
         private static void Exercise4(int[] numbers) {
-
+            var result = numbers.Distinct().Take(3);
+            foreach (var item in result) {
+                Console.WriteLine(item);
+            }
+            
         }
 
         private static void Exercise5(int[] numbers) {
