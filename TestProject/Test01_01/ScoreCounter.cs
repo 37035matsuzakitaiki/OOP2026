@@ -8,10 +8,17 @@
         }
 
         //メソッドの概要：
-        private static IEnumerable<Student> ReadScore(string filePath) {
+         static IEnumerable<Student> ReadScore(string filePath) {
             var sales = new List<Student>();
             var lines = File.ReadAllLines(filePath);
-            
+            foreach (var item in lines) {
+                string[] items = item.Split(',');
+                var sale = new Student {
+                    Name = items[0],
+                    Subject = items[1],
+                    Score = int.Parse(items[2])
+                };
+            }
 
 
 
