@@ -18,21 +18,30 @@
                     Subject = items[1],
                     Score = int.Parse(items[2])
                 };
+                sales.Add(sale);
             }
-
-
-
-
-
-
-
+            
             return sales;
         }
 
         //メソッドの概要：
         public IDictionary<string, int> GetPerStudentScore() {
             var dict = new Dictionary<string, int>();
+            var dicts = new SortedDictionary<string, int>();
+            
+            foreach (var sale in _score) {
 
+                if (dict.ContainsKey(sale.Subject)) {
+                    
+                    dict[sale.Subject] += sale.Score;
+                } else { 
+                    //未登録の場合
+                    dict[sale.Subject] = sale.Score;
+                }
+                   
+            }
+            return dict;
+            
 
 
 
