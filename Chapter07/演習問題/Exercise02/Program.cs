@@ -85,6 +85,7 @@ namespace Exercise02 {
             foreach (var item in selected) {
                 Console.WriteLine(item);
 
+
             }
         }
     }
