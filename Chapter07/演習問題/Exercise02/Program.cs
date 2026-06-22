@@ -49,10 +49,18 @@ namespace Exercise02 {
         private static void Exercise3(List<Book> books) {
             var pagecounts = books.Where(x => x.Title.Contains("C#")).Average(n=>n.Pages);
             Console.WriteLine(pagecounts);
+
+            //var average = books.Average(b => (b.Title.Contains("C#") ? 1 : 0));
+            //Console.WriteLine(average);
+
         }
+            
 
         private static void Exercise4(List<Book> books) {
-            var bookprice = books.Where(x => x.Price >= 4000).Take(1);
+            var bookprice = books.FirstOrDefault(x => x.Price >= 4000);
+            if (bookprice is not null) {
+                Console.WriteLine(bookprice.Title);
+            }
 
         }
 
