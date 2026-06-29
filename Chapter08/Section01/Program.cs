@@ -1,9 +1,11 @@
-﻿namespace Section01 {
+﻿using System;
+
+namespace Section01 {
     internal class Program {
         static private Dictionary<string, string> prefOfficeDict = new Dictionary<string, string>();
 
         static void Main(string[] args) {
-            string?  pref, preCaptalLocation;
+            string? pref, preCaptalLocation;
             Console.WriteLine("県庁所在地の登録【入力終了：Ctrl + 'Z'】");
            　//都道府県の入力
             while (true) {
@@ -18,39 +20,55 @@
                 prefOfficeDict[pref] = preCaptalLocation;
 
             }
-            Console.WriteLine("****メニュー****");
-            Console.WriteLine("1:一覧表示" + "2:検索" + "3:終了");
-            
-                int num =int.Parse(Console.ReadLine());
-            switch (num) {
-                case 1:
-                    foreach (var item in prefOfficeDict) {
-                        Console.WriteLine($"都道府県：{item.Key}県庁所在地：{item.Value}");
-                    } 
-                    break;
-                case 2:
-                    Console.Write("検索：");
-                    foreach (var item in prefOfficeDict) {
-                        if (item.Key == Console.ReadLine()) {
-                            Console.WriteLine("都道府県" + item.Key +":" + "県庁所在地" + item.Value);
-                            break;
-                        }
-                    }
-                    break;
-                case 3:
 
-                    break;
-            }
-
-
-            
+            menuPisp();
 
 
 
             
-
-           
+            
 
         }
+        private static void menuPisp() {
+            while (true) {
+                Console.WriteLine("****メニュー****");
+                Console.WriteLine("1:一覧表示" + "2:検索" + "3:終了");
+                Console.Write(">");
+                //メニュー番号を入力させて呼び出し元へ返却
+                int num = int.Parse(Console.ReadLine());  //１，２，３を入力し数字に変換
+
+                if (num == 1) {
+                    allDisp();
+                } else if (num == 2) {
+                    searchPrefCaptalLocation();
+                }
+                if (num == 3) break;
+            }
+            
+            //if (prefOfficeDict.ContainsKey(pref)) {
+            //    Console.WriteLine();
+            //    if (Console.ReadLine() == "N")continue;
+            //}
+        }
+
+            
+        
+
+        private static void allDisp() {
+            //コレクション（prefOfficeDict）の中身をすべて出力
+            
+            foreach (var item in prefOfficeDict) {
+                Console.WriteLine($"{item.Key}の県庁所在地は{item.Value}です。");
+            }
+        }
+        private static void searchPrefCaptalLocation() {
+            //検索
+            foreach (var item in prefOfficeDict) {
+                if (item.Key == Console.ReadLine()) {
+                    Console.WriteLine($"{item.Key}の県庁所在地は{item.Value}です。");
+                }
+            }
+        }
+        
     }
 }
