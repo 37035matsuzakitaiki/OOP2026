@@ -23,11 +23,6 @@ namespace Section01 {
 
             menuPisp();
 
-
-
-            
-            
-
         }
         private static void menuPisp() {
             while (true) {
