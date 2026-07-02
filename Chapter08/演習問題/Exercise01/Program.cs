@@ -14,10 +14,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise1(string text) { //問題8.1 
-            var dict = new Dictionary<char,int>();
+            var dict = new Dictionary<char,int>();　//dictにchar,intの入れ物を作る
             foreach (char i in text.ToUpper()) {
                 if ('A' <= i && i <= 'Z') {
-                    if (dict.ContainsKey(i)) {
+                    if (dict.ContainsKey(i)) {　　//containskeyはキーが存在するか確かめれる
                         dict[i]++;
                     } else {
                         dict[i] = 1;
@@ -33,7 +33,21 @@ namespace Exercise01 {
         }
            
         private static void Exercise2(string text) {
-            
+            var dict = new SortedDictionary<char, int>();　//dictにchar,intの入れ物を作る
+            foreach (char i in text.ToUpper()) {
+                if ('A' <= i && i <= 'Z') {
+                    if (dict.ContainsKey(i)) {　　//containskeyはキーが存在するか確かめれる
+                        dict[i]++;
+                    } else {
+                        dict[i] = 1;
+                    }
+
+                }
+
+            }
+            foreach (var item in dict.OrderBy(x => x.Key)) {
+                Console.WriteLine($"{item.Key}:{item.Value}");
+            }
         }
 
      
