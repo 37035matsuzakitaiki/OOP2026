@@ -14,7 +14,7 @@ namespace Exercise02 {
             Console.WriteLine("\n--4.2.2--");
             Exercise3();
             Console.WriteLine("\n--4.2.3--");
-
+        }
             private static void Exercise1() {
             //if-else文を使用
             var line = Console.ReadLine();
