@@ -1,4 +1,6 @@
-﻿namespace Test01_02 {
+﻿using System.Linq;
+
+namespace Test01_02 {
     internal class Program {
         static void Main(string[] args) {
             var numbers = new[] { 12, 87, 94, 14, 53, 20, 40, 35, 76, 91, 31, 17, 48 };
@@ -102,8 +104,8 @@
         //問題６　全都市数
         //　　　　出力結果【8】
         private static void Exercise06(List<string> cities) {
-            //var count = cities.Find(x => x);
-            //Console.WriteLine(count);
+            var count = cities.Count();
+            Console.WriteLine("都市数：" + count);
         }
 
         //問題７　各都市名をアルファベット順（昇順）に出力
@@ -132,7 +134,9 @@
         //　　　　  Canberra : 8文字
         //　　　　  Hong Kong : 9文字】
         private static void Exercise08(List<string> cities) {
-    
+            foreach (var item in cities) {
+               // var result = cities
+            }
         
         }
 
