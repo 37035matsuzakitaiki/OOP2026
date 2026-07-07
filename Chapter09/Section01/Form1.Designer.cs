@@ -31,9 +31,11 @@
             btBirthCalc = new Button();
             生年月日 = new Label();
             dateTimePicker1 = new DateTimePicker();
-            textBox1 = new TextBox();
+            tbOut2 = new TextBox();
             label2 = new Label();
             label3 = new Label();
+            tbOut3 = new TextBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)nudDay).BeginInit();
             SuspendLayout();
             // 
@@ -109,13 +111,13 @@
             dateTimePicker1.Size = new Size(203, 39);
             dateTimePicker1.TabIndex = 0;
             // 
-            // textBox1
+            // tbOut2
             // 
-            textBox1.Font = new Font("Yu Gothic UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            textBox1.Location = new Point(119, 370);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(407, 39);
-            textBox1.TabIndex = 2;
+            tbOut2.Font = new Font("Yu Gothic UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            tbOut2.Location = new Point(119, 369);
+            tbOut2.Name = "tbOut2";
+            tbOut2.Size = new Size(407, 39);
+            tbOut2.TabIndex = 2;
             // 
             // label2
             // 
@@ -135,18 +137,38 @@
             label3.TabIndex = 8;
             label3.Text = "経過日数";
             // 
+            // tbOut3
+            // 
+            tbOut3.Font = new Font("Yu Gothic UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            tbOut3.Location = new Point(119, 431);
+            tbOut3.Multiline = true;
+            tbOut3.Name = "tbOut3";
+            tbOut3.Size = new Size(407, 93);
+            tbOut3.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(56, 457);
+            label4.Name = "label4";
+            label4.Size = new Size(24, 15);
+            label4.TabIndex = 9;
+            label4.Text = "メモ";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(549, 447);
+            ClientSize = new Size(549, 568);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(生年月日);
             Controls.Add(btBirthCalc);
             Controls.Add(label1);
             Controls.Add(nudDay);
-            Controls.Add(textBox1);
+            Controls.Add(tbOut3);
+            Controls.Add(tbOut2);
             Controls.Add(tbOut);
             Controls.Add(取得);
             Controls.Add(dateTimePicker1);
@@ -168,8 +190,10 @@
         private Button btBirthCalc;
         private Label 生年月日;
         private DateTimePicker dateTimePicker1;
-        private TextBox textBox1;
+        private TextBox tbOut2;
         private Label label2;
         private Label label3;
+        private TextBox tbOut3;
+        private Label label4;
     }
 }
