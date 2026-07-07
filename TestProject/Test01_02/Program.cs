@@ -8,7 +8,7 @@ namespace Test01_02 {
             var cities = new List<string> {
                 "Tokyo", "New Delhi", "Bangkok", "London", "Paris", "Berlin",
                 "Canberra", "Hong Kong",
-            };
+            }; 
 
             #region テスト用ドライバ
             Console.WriteLine("問題１：合計値");
@@ -89,7 +89,7 @@ namespace Test01_02 {
         private static void Exercise04(int[] numbers) {
             var result = numbers.Where(x => x >= 10 && x <= 50);
             foreach (var item in result) {
-                Console.WriteLine(item + " ");
+                Console.Write(item + " ");
             }
         }
 
@@ -119,7 +119,10 @@ namespace Test01_02 {
         //          Paris
         //          Tokyo】
         private static void Exercise07(List<string> cities) {
-        
+            var result = cities.OrderBy(x => x).ToList();
+            foreach (var item in result) {
+                Console.WriteLine(item);
+            }
 
         }
 
@@ -134,10 +137,12 @@ namespace Test01_02 {
         //　　　　  Canberra : 8文字
         //　　　　  Hong Kong : 9文字】
         private static void Exercise08(List<string> cities) {
-            foreach (var item in cities) {
-               // var result = cities
+            
+            var result = cities.Select(x => x).ToList();
+            foreach (var item in result)
+            {
+                Console.WriteLine(item + ":" + item.Length);
             }
-        
         }
 
         //問題９　各都市名と文字数を文字数の昇順で表示
@@ -150,18 +155,22 @@ namespace Test01_02 {
         //          Canberra : 8文字
         //          New Delhi : 9文字
         //          Hong Kong : 9文字】
-        private static void Exercise09(List<string> cities) {
-        
-        
-        
-        }
+        private static void Exercise09(List<string> cities)
+        {
+            //var city = cities.Select(x => x.);
+           
 
+        }
         //問題１０　６文字の都市名を表示
         //　　　　出力結果
         //        【London
         //          Berlin】
         private static void Exercise10(List<string> cities) {
-        
+            var result = cities.Where(x => x.Length == 6);
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
 
         }
     }
