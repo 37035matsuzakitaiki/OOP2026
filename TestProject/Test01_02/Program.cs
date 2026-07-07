@@ -157,8 +157,11 @@ namespace Test01_02 {
         //          Hong Kong : 9文字】
         private static void Exercise09(List<string> cities)
         {
-            //var city = cities.Select(x => x.);
-           
+            
+            var result = cities.Select(x => x).ToList();
+            foreach (var item in result.OrderBy(n=>n.Count())) {
+                Console.WriteLine(item + ":" + item.Length);
+            }
 
         }
         //問題１０　６文字の都市名を表示
