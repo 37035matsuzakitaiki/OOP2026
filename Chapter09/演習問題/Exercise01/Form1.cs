@@ -8,7 +8,7 @@ namespace Exercise01 {
 
         private void btButton1_Click(object sender, EventArgs e) {
             DateTime today = DateTime.Now;
-            tbOut1.Text = $"{today}";
+            tbOut1.Text = today.ToString("yyyy/mm/dd HH:mm");
         }
 
         private void btButton2_Click(object sender, EventArgs e) {
