@@ -17,27 +17,43 @@ namespace Section01 {
         private void btBirthCalc_Click(object sender, EventArgs e) {
             
             DateTime birth = dtpBirth.Value;  //¶‚Ü‚ê‚½“ú•t
-            DateTime today = DateTime.Today; //
+            DateTime today = DateTime.Today; //¡“ú
 
-            //int diff = (today.Year - birth.Year);
-            //if (today< birth.AddYears(diff)) {
-            //    diff--;
-            //}
+            
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
             var dayOfWeek = culture.DateTimeFormat.GetShortestDayName(birth.DayOfWeek);
 
             tbOut.Text = ($"‚ ‚È‚½‚Í{GetAge(birth,today)}Î‚Å‚·");
-
+            //—j“ú
             tbOut3.Text = ($"¶‚Ü‚ê‚½{(birth.Month)}Œ{(birth.Day)}“ú‚Í" +
                 $"‘æ{NthWeek(birth)}T‚Ì{dayOfWeek}—j“ú‚Å‚·");
            
+            TimeSpan s = birth - today;
+            tbOut2.Text = $"¶‚Ü‚ê‚Ä‚©‚ç{s.TotalDays}“ú–Ú‚Å‚·";
 
+            //¡”N‚Ì’a¶“ú‚ğ¶¬‚·‚é
+            DateTime thisYearBirthday = new DateTime(today.Year, birth.Month, birth.Day);
+            //’a¶“ú‰ß‚¬‚½‚©H
+            if (thisYearBirthday> today) {
+                
+              thisYearBirthday.AddYears(1);
+            }
+            var span = thisYearBirthday - today;
 
+            if (span.Days == 0) {
+                tbOut4.Text = "¡“ú‚Í’a¶“ú‚Å‚·";
+            } else {
+                tbOut4.Text = $"Ÿ‚Ì’a¶“ú‚Ü‚Å‚ ‚Æ{span.Days}“ú‚Å‚·";
+            }
 
-            TimeSpan s = today.Date - birth.Date;
-            tbOut2.Text = $"¶‚Ü‚ê‚Ä‚©‚ç{s.Days}“ú–Ú‚Å‚·";
+                
+           
+                
+
             
+
+
         }
         //”N—î‚ğ‹‚ß‚éƒƒ\ƒbƒh
         static int GetAge(DateTime birthday, DateTime targetday) {
