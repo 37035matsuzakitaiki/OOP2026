@@ -59,12 +59,12 @@ namespace Exercise02 {
             //switch式
             var line = Console.ReadLine();
             if(int.TryParse(line,out var num)) {
-                var outNum = num switch {
-                    < 0 => num,
-                    < 100 => num * 2,
-                    < 500 => num * 3,
-                     => num
-                };
+                //var outNum = num switch {
+                //    < 0 => num,
+                //    < 100 => num * 2,
+                //    < 500 => num * 3,
+                //     => num
+                //};
             }
             Console.WriteLine("入力値に誤りがあります");
         }

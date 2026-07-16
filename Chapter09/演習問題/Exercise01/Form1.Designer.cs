@@ -47,7 +47,7 @@
             tbOut1.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             tbOut1.Location = new Point(241, 50);
             tbOut1.Name = "tbOut1";
-            tbOut1.Size = new Size(274, 35);
+            tbOut1.Size = new Size(336, 35);
             tbOut1.TabIndex = 1;
             // 
             // btButton2
@@ -77,7 +77,7 @@
             tbOut3.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             tbOut3.Location = new Point(241, 228);
             tbOut3.Name = "tbOut3";
-            tbOut3.Size = new Size(274, 35);
+            tbOut3.Size = new Size(336, 35);
             tbOut3.TabIndex = 1;
             // 
             // tbOut2
@@ -85,7 +85,7 @@
             tbOut2.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             tbOut2.Location = new Point(241, 139);
             tbOut2.Name = "tbOut2";
-            tbOut2.Size = new Size(274, 35);
+            tbOut2.Size = new Size(336, 35);
             tbOut2.TabIndex = 1;
             // 
             // Form1
