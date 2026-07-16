@@ -217,6 +217,8 @@
             // 
             // dgvRecords
             // 
+            dgvRecords.AllowUserToAddRows = false;
+            dgvRecords.AllowUserToDeleteRows = false;
             dgvRecords.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecords.Location = new Point(108, 413);
             dgvRecords.MultiSelect = false;
@@ -225,7 +227,6 @@
             dgvRecords.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRecords.Size = new Size(699, 343);
             dgvRecords.TabIndex = 9;
-            dgvRecords.CellContentClick += dgvRecords_CellContentClick;
             dgvRecords.Click += dgvRecords_Click;
             // 
             // label5

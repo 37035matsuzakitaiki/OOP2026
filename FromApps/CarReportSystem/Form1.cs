@@ -40,7 +40,8 @@ namespace CarReportSystem {
 
             };
             listCarReports.Add(carReport);
-
+            SetCbAuthor(cbAuthor.Text);
+            SetCbCarName(cbCarName.Text);
             ImputItemsAllClear();  //入力項目の全クリア
 
         }
@@ -69,32 +70,77 @@ namespace CarReportSystem {
         }
 
         private void btNewInput_Click(object sender, EventArgs e) {
-
-            Button bt = (Button)sender;
-
             ImputItemsAllClear();
         }
 
         private void ImputItemsAllClear() {
-            cbAuthor.Text = string.Empty;
-            cbCarName.Text = string.Empty;
             dtpDate.Value = DateTime.Today;
+            cbAuthor.Text = string.Empty;
             rbOther.Checked = true;
+            cbCarName.Text = string.Empty;
             tbReport.Text = string.Empty;
-            pbPicture = null;
+            pbPicture.Image = null;
         }
 
         private void dgvRecords_Click(object sender, EventArgs e) {
+
+            if (dgvRecords.CurrentRow is null) return;    
+            
+
             dtpDate.Value = (DateTime)dgvRecords.CurrentRow.Cells["Date"].Value;
             cbAuthor.Text = (string)dgvRecords.CurrentRow.Cells["Author"].Value;
-            cbCarName.Text = (string)dgvRecords.CurrentRow.Cells["Name"].Value;
-            pbPicture.Image = (Image)dgvRecords.CurrentRow.Cells["Image"].Value;
+            SetRadioButtonMaker((MakerGroup)dgvRecords.CurrentRow.Cells["Maker"].Value);
+            cbCarName.Text = (string)dgvRecords.CurrentRow.Cells["CarName"].Value;
+            tbReport.Text = (string)dgvRecords.CurrentRow.Cells["Report"].Value;
+            pbPicture.Image = (Image)dgvRecords.CurrentRow.Cells["Picture"].Value;
+            
+        }
+
+        private void SetRadioButtonMaker(MakerGroup targetMaker) {
+            switch (targetMaker) {
+                case MakerGroup.トヨタ:
+                    rbToyota.Checked = true;
+                    break;
+                case MakerGroup.日産:
+                    rbNissan.Checked = true;
+                    break;
+                case MakerGroup.ホンダ:
+                    rbHonda.Checked = true;
+                    break;
+                case MakerGroup.スバル:
+                    rbSubaru.Checked = true;
+                    break;
+                case MakerGroup.輸入車:
+                    rbImport.Checked = true;
+                    break;
+                default:
+                    rbOther.Checked = true;
+                    break;
+                
+            }
 
         }
 
-        private void dgvRecords_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+        //記録者の入力履歴をコンボボックスへ登録
+        private void SetCbAuthor(string author) {
+            //使用するキーワード
+            //Contains Add Items cbAuthor
 
+            //未登録なら登録
+            if (!cbAuthor.Items.Contains(author)) {
+                cbAuthor.Items.Add(author);
+            }
         }
+
+        //車名の入力履歴をコンボボックスへ登録（重複なし）
+        private void SetCbCarName(string carName) {
+            if (!cbAuthor.Items.Contains(carName)) {
+                cbCarName.Items.Add(carName);
+                -
+            }
+        }
+
+
     }
 }
 
