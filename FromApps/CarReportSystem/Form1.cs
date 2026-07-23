@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml;
+using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
@@ -199,6 +201,14 @@ namespace CarReportSystem {
         private void êFê›íËToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColor.Color;
+            }
+
+        }
+
+        private void Form1_FormClosed(object sender,FormCloseEventArgs e){
+            using (var writer = XmlWhite.Create("setting.xml")) {
+                var serializer = new IXmSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
             }
         }
     }
