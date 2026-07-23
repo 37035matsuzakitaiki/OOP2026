@@ -178,12 +178,22 @@ namespace CarReportSystem {
             //listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
             listCarReports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
 
-            
+
             dgvRecords.Refresh();   //データグリッドビューの更新
         }
 
         private void dgvRecords_SelectionChanged(object sender, EventArgs e) {
 
+        }
+
+        private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (cdColor.ShowDialog() == DialogResult.OK) {
+                BackColor = cdColor.Color;
+            }
         }
     }
 }
