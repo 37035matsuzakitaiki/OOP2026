@@ -227,6 +227,7 @@
             dgvRecords.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRecords.Size = new Size(699, 343);
             dgvRecords.TabIndex = 9;
+            dgvRecords.SelectionChanged += dgvRecords_SelectionChanged;
             dgvRecords.Click += dgvRecords_Click;
             // 
             // label5
@@ -290,6 +291,7 @@
             btDeletePicture.TabIndex = 11;
             btDeletePicture.Text = "削除";
             btDeletePicture.UseVisualStyleBackColor = false;
+            btDeletePicture.Click += btDeletePicture_Click;
             // 
             // btOpenPicture
             // 
@@ -325,6 +327,7 @@
             btModifyRecord.TabIndex = 11;
             btModifyRecord.Text = "修正";
             btModifyRecord.UseVisualStyleBackColor = false;
+            btModifyRecord.Click += btModifyRecord_Click;
             // 
             // btDeleteRecord
             // 
@@ -336,6 +339,7 @@
             btDeleteRecord.TabIndex = 11;
             btDeleteRecord.Text = "削除";
             btDeleteRecord.UseVisualStyleBackColor = false;
+            btDeleteRecord.Click += btDeleteRecord_Click;
             // 
             // pbPicture
             // 
@@ -407,6 +411,7 @@
             statusStrip1.Location = new Point(0, 763);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(829, 22);
+            statusStrip1.SizingGrip = false;
             statusStrip1.TabIndex = 15;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -456,9 +461,12 @@
             Controls.Add(label1);
             Controls.Add(dtpDate);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "CarReportSystem";
             Text = "試乗レポート管理システム";
+            Load += CarReportSystem_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).EndInit();

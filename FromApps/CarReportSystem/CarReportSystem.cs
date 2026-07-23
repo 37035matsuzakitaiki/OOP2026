@@ -27,7 +27,7 @@ namespace CarReportSystem {
         [System.ComponentModel.DisplayName("レポート")]
         public string Report { get; set; } = string.Empty;   //レポート
         [System.ComponentModel.DisplayName("画像")]
-        public Image Picture { get; set; } //画像
+        public Image? Picture { get; set; } //画像
 
     }
 }
