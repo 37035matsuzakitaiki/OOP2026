@@ -10,6 +10,9 @@ namespace CarReportSystem {
         //カーレポート管理用リスト  
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
+        Setting settings = new Setting();
+
+
         public CarReportSystem() {
             InitializeComponent();
             dgvRecords.DataSource = listCarReports;
@@ -81,11 +84,11 @@ namespace CarReportSystem {
             tbReport.Text = string.Empty;
             pbPicture.Image = null;
 
-           
+
             dgvRecords.ClearSelection();//セルの選択解除
         }
 
-        
+
 
         private void SetRadioButtonMaker(MakerGroup targetMaker) {
             switch (targetMaker) {
@@ -132,19 +135,39 @@ namespace CarReportSystem {
         }
 
         private void CarReportSystem_Load(object sender, EventArgs e) {
+            //using (var reader = XmlReader.Create("settings.xml"))
 
+                if (File.Exists("setting.xml")) {
+                    try {
+                        using(var reader = XmlReader.Create("setting.xml")) {
+                            var serializer = new XmlSerializer(typeof(Setting));
+                            var novel = serializer.Deserialize(reader) as Setting;
+                        //背景色設定
+                        BackColor = Color.FromArgb(settings.MainFormBackColor);
+                    }
+                    }
+                    catch (Exception ex) {
+                        tssIbMessage.Text = "設定ファイル読み込みエラー";
+                        MessageBox.Show(ex.Message);//より具体的なエラーを出力
+                    }
+                } else {
+                    tssIbMessage.Text = "設定ファイルがありません";
+                }
+
+            
+            
         }
-
+        //写真削除
         private void btDeletePicture_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
         }
-
+        //レコード削除
         private void btDeleteRecord_Click(object sender, EventArgs e) {
 
             if ((dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport)
                 || (!dgvRecords.CurrentRow.Selected)) return;
 
-                InputItemsAllClear();
+            InputItemsAllClear();
             listCarReports.RemoveAt(dgvRecords.CurrentRow.Index);
             dtpDate.Value = carReport.Date;
             cbAuthor.Text = carReport.Author;
@@ -183,7 +206,7 @@ namespace CarReportSystem {
 
             dgvRecords.Refresh();   //データグリッドビューの更新
             tsslbMassage.Text = "レポートを修正しました";
-            
+
         }
 
         private void dgvRecords_SelectionChanged(object sender, EventArgs e) {
@@ -201,13 +224,19 @@ namespace CarReportSystem {
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColor.Color;
+                //変更された色の情報を保存
+                settings.MainFormBackColor = cdColor.Color.ToArgb();
             }
 
         }
 
-        private void Form1_FormClosed(object sender,FormCloseEventArgs e){
-            using (var writer = XmlWhite.Create("setting.xml")) {
-                var serializer = new IXmSerializer(settings.GetType());
+       
+        //フォームが閉じたら呼ばれるイベント
+        private void CarReportSystem_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルへ色情報を保存する処理
+            //（ファイル名：setting.xml）
+            using (var writer = XmlWriter.Create("setting.xml")) {
+                var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
         }
