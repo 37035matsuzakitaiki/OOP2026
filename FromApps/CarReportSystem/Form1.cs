@@ -1,19 +1,20 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
-    public partial class CarReportSystem : Form {
+    public partial class Form1 : Form {
 
         //カーレポート管理用リスト  
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
-        Setting settings = new Setting();
+        Settings settings = new Settings();
 
 
-        public CarReportSystem() {
+        public Form1() {
             InitializeComponent();
             dgvRecords.DataSource = listCarReports;
         }
@@ -134,28 +135,28 @@ namespace CarReportSystem {
             }
         }
 
-        private void CarReportSystem_Load(object sender, EventArgs e) {
+        private void Form1_Load(object sender, EventArgs e) {
             //using (var reader = XmlReader.Create("settings.xml"))
 
-                if (File.Exists("setting.xml")) {
-                    try {
-                        using(var reader = XmlReader.Create("setting.xml")) {
-                            var serializer = new XmlSerializer(typeof(Setting));
-                            var novel = serializer.Deserialize(reader) as Setting;
+            if (File.Exists("setting.xml")) {
+                try {
+                    using (var reader = XmlReader.Create("setting.xml")) {
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        settings = serializer.Deserialize(reader) as Settings;
                         //背景色設定
                         BackColor = Color.FromArgb(settings.MainFormBackColor);
                     }
-                    }
-                    catch (Exception ex) {
-                        tssIbMessage.Text = "設定ファイル読み込みエラー";
-                        MessageBox.Show(ex.Message);//より具体的なエラーを出力
-                    }
-                } else {
-                    tssIbMessage.Text = "設定ファイルがありません";
                 }
+                catch (Exception ex) {
+                    tssIbMessage.Text = "設定ファイル読み込みエラー";
+                    MessageBox.Show(ex.Message);//より具体的なエラーを出力
+                }
+            } else {
+                tssIbMessage.Text = "設定ファイルがありません";
+            }
 
-            
-            
+
+
         }
         //写真削除
         private void btDeletePicture_Click(object sender, EventArgs e) {
@@ -219,6 +220,7 @@ namespace CarReportSystem {
 
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
+
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -230,7 +232,7 @@ namespace CarReportSystem {
 
         }
 
-       
+
         //フォームが閉じたら呼ばれるイベント
         private void CarReportSystem_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルへ色情報を保存する処理
@@ -240,6 +242,69 @@ namespace CarReportSystem {
                 serializer.Serialize(writer, settings);
             }
         }
+
+        private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
+            reportOpenFile();
+        }
+
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
+            reportSaveFile();
+        }
+        private void reportSaveFile() {
+            if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリ形式でシリアル化
+#pragma warning disable SYSLIB0011
+                    var bf = new BinaryFormatter();
+#pragma warning restore SYSLIB0011
+                    using (FileStream fs = File.Open(sfdReportFileSave.FileName, FileMode.Create)) {
+                        bf.Serialize(fs, listCarReports);
+                    }
+
+
+                }
+                catch (Exception ex) {
+                    tssIbMessage.Text = "ファイル書き出しエラー";
+                    MessageBox.Show(ex.Message);
+
+                }
+            }
+        }
+        private void reportOpenFile() {
+            if (ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
+                try {
+                    //逆シリアル化でバイナリ形式を取り込む
+#pragma warning disable SYSLIB0011
+                    var bf = new BinaryFormatter();
+#pragma warning restore SYSLIB0011
+                    using (FileStream fs = File.Open(
+                        ofdReportFileOpen.FileName, //ファイル名
+                        FileMode.Open, //ファイルモード
+                        FileAccess.Read //ファイルアクセス
+                        )) {
+                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dgvRecords.DataSource = listCarReports;
+                    }
+                    //コンボボックスの履歴をすべて消す
+                    cbAuthor.Items.Clear();
+                    cbCarName.Items.Clear();
+
+
+                    //コンボボックスの履歴を再登録
+                    foreach (var report in listCarReports) {
+                        SetCbAuthor(report.Author);
+                        SetCbCarName(report.CarName);
+                    }
+                    
+                }
+                catch (Exception ex) {
+                    tssIbMessage.Text = "ファイル呼び出しエラー";
+                    MessageBox.Show(ex.Message);
+                    
+                }
+            }
+        }
+        
     }
 }
 

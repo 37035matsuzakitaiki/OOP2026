@@ -1,5 +1,5 @@
 ﻿namespace CarReportSystem {
-    partial class CarReportSystem {
+    partial class Form1 {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -63,6 +63,8 @@
             tsslbMassage = new ToolStripStatusLabel();
             ofdPicFileOpen = new OpenFileDialog();
             cdColor = new ColorDialog();
+            sfdReportFileSave = new SaveFileDialog();
+            ofdReportFileOpen = new OpenFileDialog();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPicture).BeginInit();
@@ -372,12 +374,14 @@
             開くToolStripMenuItem.Name = "開くToolStripMenuItem";
             開くToolStripMenuItem.Size = new Size(180, 22);
             開くToolStripMenuItem.Text = "開く...";
+            開くToolStripMenuItem.Click += 開くToolStripMenuItem_Click;
             // 
             // 保存ToolStripMenuItem
             // 
             保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
             保存ToolStripMenuItem.Size = new Size(180, 22);
             保存ToolStripMenuItem.Text = "保存";
+            保存ToolStripMenuItem.Click += 保存ToolStripMenuItem_Click;
             // 
             // 色設定ToolStripMenuItem
             // 
@@ -436,7 +440,11 @@
             // 
             ofdPicFileOpen.FileName = "openFileDialog1";
             // 
-            // CarReportSystem
+            // ofdReportFileOpen
+            // 
+            ofdReportFileOpen.FileName = "openFileDialog1";
+            // 
+            // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -466,10 +474,10 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
-            Name = "CarReportSystem";
+            Name = "Form1";
             Text = "試乗レポート管理システム";
             FormClosed += CarReportSystem_FormClosed;
-            Load += CarReportSystem_Load;
+            Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).EndInit();
@@ -524,5 +532,7 @@
         private ToolStripStatusLabel tsslbMassage;
         private OpenFileDialog ofdPicFileOpen;
         private ColorDialog cdColor;
+        private SaveFileDialog sfdReportFileSave;
+        private OpenFileDialog ofdReportFileOpen;
     }
 }

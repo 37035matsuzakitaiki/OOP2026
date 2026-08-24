@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarReportSystem {
-    public class Setting {
+    public class Settings {
         public int MainFormBackColor { get; set; }
     }
 }
