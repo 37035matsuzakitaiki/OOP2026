@@ -177,13 +177,13 @@ namespace CarReportSystem {
                 || (!dgvRecords.CurrentRow.Selected)) return;
 
             InputItemsAllClear();
-            listCarReports.RemoveAt(dgvRecords.CurrentRow.Index);
-            dtpDate.Value = carReport.Date;
-            cbAuthor.Text = carReport.Author;
-            SetRadioButtonMaker(carReport.Maker);
-            cbCarName.Text = carReport.CarName;
-            tbReport.Text = carReport.Report;
-            pbPicture.Image = carReport.Picture;
+            //削除したいインデックスを指定してリストから削除
+            if(dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport1) {
+                tssIbMessage.Text = "削除するレポートを選択してください。";
+                return;
+            }
+            listCarReports.Remove(carReport);
+            InputItemsUpdate();
 
         }
 
@@ -200,7 +200,8 @@ namespace CarReportSystem {
             }
 
             //選択されているインデックスを取得
-            if ((dgvRecords.CurrentRow is null) || (dgvRecords.CurrentRow.Selected)) {
+            if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport1) {
+                tssIbMessage.Text = "修正するレポートを選択してください。";
                 return;
             }
             listCarReports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
