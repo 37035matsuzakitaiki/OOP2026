@@ -44,9 +44,11 @@ namespace CarReportSystem {
             };
             //入力履歴を登録
             listCarReports.Add(carReport);
-            SetCbAuthor(cbAuthor.Text);
-            SetCbCarName(cbCarName.Text);
-            InputItemsAllClear();  //入力項目の全クリア
+
+            SetCbAuthor(cbAuthor.Text.Trim());
+            SetCbCarName(cbCarName.Text.Trim());
+
+            InputItemsUpdate();  //入力項目の全クリア
             dgvRecords.ClearSelection();//セルの選択解除
         }
 
@@ -140,7 +142,9 @@ namespace CarReportSystem {
                 try {
                     using (var reader = XmlReader.Create("setting.xml")) {
                         var serializer = new XmlSerializer(typeof(Settings));
-                        settings = serializer.Deserialize(reader) as Settings;
+                        if (serializer.Deserialize(reader) is Settings loadedSettings) {
+                            settings = loadedSettings;
+                        }
                         //背景色設定
                         BackColor = Color.FromArgb(settings.MainFormBackColor);
                     }
@@ -152,9 +156,15 @@ namespace CarReportSystem {
             } else {
                 tssIbMessage.Text = "設定ファイルがありません";
             }
+            
 
 
+        }
 
+        private void InputItemsUpdate() {
+            if (dgvRecords.CurrentRow is null
+                || !dgvRecords.CurrentRow.Selected)
+                InputItemsAllClear();
         }
         //写真削除
         private void btDeletePicture_Click(object sender, EventArgs e) {
@@ -213,7 +223,14 @@ namespace CarReportSystem {
             if ((dgvRecords.CurrentRow.DataBoundItem is not CarReport carReport)
                 || (!dgvRecords.CurrentRow.Selected)) return;
 
+            dtpDate.Value = carReport.Date;
+            cbAuthor.Text = carReport.Author;
+            SetRadioButtonMaker(carReport.Maker);
+            cbCarName.Text = carReport.CarName;
+            tbReport.Text = carReport.Report;
+            pbPicture.Image = carReport.Picture;
 
+            InputItemsUpdate();//データグリッドビューを更新したら呼ぶメソッド
         }
 
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
