@@ -131,12 +131,10 @@ namespace CarReportSystem {
         private void SetCbCarName(string carName) {
             if (!cbAuthor.Items.Contains(carName)) {
                 cbCarName.Items.Add(carName);
-
             }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            //using (var reader = XmlReader.Create("settings.xml"))
 
             if (File.Exists("setting.xml")) {
                 try {
@@ -193,13 +191,13 @@ namespace CarReportSystem {
 
             //選択されているインデックスを取得
             if ((dgvRecords.CurrentRow is null) || (dgvRecords.CurrentRow.Selected)) {
-                //return;
+                return;
             }
             listCarReports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
             listCarReports[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
             listCarReports[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
             listCarReports[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
-            //listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
+            listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
             listCarReports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
 
             SetCbAuthor(cbAuthor.Text.Trim());
@@ -295,15 +293,16 @@ namespace CarReportSystem {
                         SetCbAuthor(report.Author);
                         SetCbCarName(report.CarName);
                     }
-                    
+
                 }
                 catch (Exception ex) {
                     tssIbMessage.Text = "ファイル呼び出しエラー";
                     MessageBox.Show(ex.Message);
-                    
+
                 }
             }
         }
+
         
     }
 }
