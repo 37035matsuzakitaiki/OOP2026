@@ -253,12 +253,9 @@ namespace CarReportSystem {
 
         //フォームが閉じたら呼ばれるイベント
         private void CarReportSystem_FormClosed(object sender, FormClosedEventArgs e) {
-            //設定ファイルへ色情報を保存する処理
-            //（ファイル名：setting.xml）
-            using (var writer = XmlWriter.Create("setting.xml")) {
-                var serializer = new XmlSerializer(Settings.Instance.GetType());
-                serializer.Serialize(writer, Settings.Instance);
-            }
+
+            Settings.Instance.Save();
+
         }
 
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
