@@ -11,10 +11,9 @@ namespace CarReportSystem {
         //カーレポート管理用リスト  
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
-        //Settings Settings = Settings.Instance;
+        Settings Settings = Settings.Instance;
 
-
-
+        
 
         public Form1() {
             InitializeComponent();
@@ -146,7 +145,7 @@ namespace CarReportSystem {
                         var serializer = new XmlSerializer(typeof(Settings));
 
                         if (serializer.Deserialize(reader) is Settings loadedSettings) {
-                            settings = loadedSettings;
+                            Settings = loadedSettings;
                         }
                         //背景色設定
                         BackColor = Color.FromArgb(Settings.Instance.MainFormBackColor);
