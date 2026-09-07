@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,10 @@ namespace CarReportSystem {
             輸入車,
             その他,
         }
+        [System.ComponentModel.DisplayName("Id")]
+        public int Id { get; set; }   //日付
         [System.ComponentModel.DisplayName("日付")]
         public DateTime Date { get; set; }   //日付
-
         [System.ComponentModel.DisplayName("記録者")]
         public string Author { get; set; } = string.Empty;  //記録者
         [System.ComponentModel.DisplayName("メーカー")]
@@ -29,9 +31,11 @@ namespace CarReportSystem {
         public string Report { get; set; } = string.Empty;   //レポート
         [System.ComponentModel.DisplayName("画像")]
         public Image? Picture { get; set; } //画像
-        public int Id { get; set; }
-    }
+        
 
+       
+    }
 }
+    
 
 

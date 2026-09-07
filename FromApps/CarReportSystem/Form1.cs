@@ -1,8 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
-using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
@@ -261,9 +259,9 @@ namespace CarReportSystem {
 #pragma warning disable SYSLIB0011
                     var bf = new BinaryFormatter();
 #pragma warning restore SYSLIB0011
-                    using (FileStream fs = File.Open(sfdReportFileSave.FileName, FileMode.Create)) {
-                        bf.Serialize(fs, listCarReports);
-                    }
+                    //using (FileStream fs = File.Open(sfdReportFileSave.FileName, FileMode.Create)) {
+                    //    bf.Serialize(fs, listCarReports);
+                    //}
 
 
                 }
@@ -286,7 +284,7 @@ namespace CarReportSystem {
                         FileMode.Open, //ファイルモード
                         FileAccess.Read //ファイルアクセス
                         )) {
-                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        //listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
                         dgvRecords.DataSource = listCarReports;
                     }
                     //コンボボックスの履歴をすべて消す
