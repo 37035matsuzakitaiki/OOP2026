@@ -11,7 +11,7 @@ namespace CarReportSystem {
         //カーレポート管理用リスト  
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
-        Settings Settings = Settings.Instance;
+        //Settings Settings = Settings.Instance;
 
         
 
@@ -308,6 +308,8 @@ namespace CarReportSystem {
                 }
             }
         }
+
+        
 
         
     }

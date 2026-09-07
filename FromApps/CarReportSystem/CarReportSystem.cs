@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarReportSystem {
-    [Serializable]
+    //[Serializable]
     public class CarReport {
         public enum MakerGroup {
             なし,
@@ -29,6 +29,9 @@ namespace CarReportSystem {
         public string Report { get; set; } = string.Empty;   //レポート
         [System.ComponentModel.DisplayName("画像")]
         public Image? Picture { get; set; } //画像
-
+        public int Id { get; set; }
     }
+
 }
+
+
