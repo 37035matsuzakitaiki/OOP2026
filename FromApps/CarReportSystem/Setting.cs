@@ -9,7 +9,8 @@ namespace CarReportSystem {
         private static string FileName = "setting.xml";
 
         //唯一のSettingオブジェクト
-        private static Settings _instance;
+        private static Settings _instance = new Settings();
+
 
         //唯一のオブジェクトを取得する
         public static Settings Instance {
@@ -19,8 +20,8 @@ namespace CarReportSystem {
         //メイン画面に設定した色情報
         public int MainFormBackColor { get; set; }
         = SystemColors.Control.ToArgb();
-        
 
+        [XmlIgnore]
         public object XmlWrite { get; private set; }
 
 
