@@ -35,11 +35,11 @@ public class CarReportRepository
             carReports.Add(new CarReport {
                 Id = reader.GetInt32(0),    // 0—ñ–Ú: Id
                 Date = DateTime.ParseExact(reader.GetString(1),
-                "yyyy-MM-dd",CultureInfo.InvariantCulture), // 1—ñ–Ú: Name
-                Author = reader.GetString(2),  // 2—ñ–Ú: Price
-                Maker = (CarReport.MakerGroup)reader.GetInt32(3),
-                CarName = reader.GetString(4),
-                Report = reader.GetString(5),
+                "yyyy-MM-dd",CultureInfo.InvariantCulture), // 1—ñ–Ú: Date
+                Author = reader.GetString(2),  // 2—ñ–Ú: Author
+                Maker = (CarReport.MakerGroup)reader.GetInt32(3),//3—ñ–ÚFMaker
+                CarName = reader.GetString(4),//4—ñ–ÚFCarName
+                Report = reader.GetString(5),//5—ñ–ÚFReport
                 //Picture = Image.FromStream(command)
             });
         }
@@ -94,9 +94,9 @@ public class CarReportRepository
 
         command.CommandText =
             """
-            UPDATE Products
-            SET Name = $name,
-                Price = $price
+            UPDATE CarReports
+            SET Date = $date,Author = $author,Maker = $maker,
+                CarName = $carName,Report = $report,Picture = $picture
             WHERE Id = $id;
             """;
 
@@ -119,7 +119,7 @@ public class CarReportRepository
         using var command = connection.CreateCommand();
         command.CommandText =
             """
-            DELETE FROM Products
+            DELETE FROM CarReports
             WHERE Id = $id;
             """;
 
