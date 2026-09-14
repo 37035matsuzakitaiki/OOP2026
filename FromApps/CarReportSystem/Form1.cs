@@ -39,6 +39,7 @@ namespace CarReportSystem {
             }
             /************************/
 
+
             var carReport = new CarReport {
                 Date = dtpDate.Value.Date,
                 Author = cbAuthor.Text.Trim(),
