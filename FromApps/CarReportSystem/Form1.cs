@@ -1,25 +1,33 @@
+using SQLiteProductSample;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Linq;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
 
         //カーレポート管理用リスト  
-        BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+        private readonly BindingList<CarReport> _carreports = new();
+        
+        private readonly CarReportRepository _repository= new();
 
         //Settings Settings = Settings.Instance;
 
-        
+
 
         public Form1() {
             InitializeComponent();
-            dgvRecords.DataSource = listCarReports;
+            dgvRecords.DataSource = _carreports;
+            ReloadCarReports();
+
+            
         }
         //追加buttonイベントハンドラ
         private void btAddRecord_Click(object sender, EventArgs e) {
-
+            
             tsslbMessage.Text = string.Empty;
             /***********************/
             //ここに、記録者と車名が未入力だった場合の処理を記述する
@@ -29,7 +37,6 @@ namespace CarReportSystem {
                 tsslbMessage.Text = "記録者、または車名が未入力です";
                 return;
             }
-
             /************************/
 
             var carReport = new CarReport {
@@ -42,24 +49,21 @@ namespace CarReportSystem {
 
             };
             //入力履歴を登録
-            listCarReports.Add(carReport);
+            _repository.Add(carReport);
+            ReloadCarReports();
 
-            SetCbAuthor(cbAuthor.Text.Trim());
-            SetCbCarName(cbCarName.Text.Trim());
-
-            InputItemsUpdate();  //入力項目の全クリア
-            dgvRecords.ClearSelection();//セルの選択解除
+           
         }
 
         private MakerGroup GetRadioButtonMaker() {
             if (rbToyota.Checked)
                 return MakerGroup.トヨタ;
             if (rbNissan.Checked)
-                return MakerGroup.日産;
             if (rbHonda.Checked)
                 return MakerGroup.ホンダ;
             if (rbSubaru.Checked)
                 return MakerGroup.スバル;
+                return MakerGroup.日産;
             if (rbImport.Checked)
                 return MakerGroup.その他;
 
@@ -164,15 +168,22 @@ namespace CarReportSystem {
 
             if ((dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport)
                 || (!dgvRecords.CurrentRow.Selected)) return;
-
-            InputItemsAllClear();
+                
             //削除したいインデックスを指定してリストから削除
             if(dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport1) {
                 tssIbMessage.Text = "削除するレポートを選択してください。";
                 return;
             }
-            listCarReports.Remove(carReport);
-            InputItemsUpdate();
+
+            try {
+                _repository.Delete(carReport.Id);
+                ReloadCarReports();
+                InputItemsAllClear();
+            }
+            catch (Exception ex) {
+                ShowError("削除エラー", ex);
+            }
+
 
         }
 
@@ -193,12 +204,12 @@ namespace CarReportSystem {
                 tssIbMessage.Text = "修正するレポートを選択してください。";
                 return;
             }
-            listCarReports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
-            listCarReports[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
-            listCarReports[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
-            listCarReports[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
-            listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
-            listCarReports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
+            _carreports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
+            _carreports[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
+            _carreports[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
+            _carreports[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
+            _carreports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
+            _carreports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
 
             SetCbAuthor(cbAuthor.Text.Trim());
             SetCbCarName(cbCarName.Text.Trim());
@@ -206,11 +217,25 @@ namespace CarReportSystem {
             dgvRecords.Refresh();   //データグリッドビューの更新
             tsslbMassage.Text = "レポートを修正しました";
 
+            
+            try {
+                
+                _repository.Update(carReport1);
+                ReloadCarReports();
+                InputItemsAllClear();
+                tssIbMessage.Text= "商品を修正しました。";
+                
+            }
+            catch (Exception ex) {
+                ShowError("修正エラー", ex);
+            }
+
+
         }
 
         private void dgvRecords_SelectionChanged(object sender, EventArgs e) {
 
-            if ((dgvRecords.CurrentRow.DataBoundItem is not CarReport carReport)
+            if ((dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport)
                 || (!dgvRecords.CurrentRow.Selected)) return;
 
             dtpDate.Value = carReport.Date;
@@ -260,7 +285,7 @@ namespace CarReportSystem {
                     var bf = new BinaryFormatter();
 #pragma warning restore SYSLIB0011
                     //using (FileStream fs = File.Open(sfdReportFileSave.FileName, FileMode.Create)) {
-                    //    bf.Serialize(fs, listCarReports);
+                    //    bf.Serialize(fs, _carreports);
                     //}
 
 
@@ -284,8 +309,8 @@ namespace CarReportSystem {
                         FileMode.Open, //ファイルモード
                         FileAccess.Read //ファイルアクセス
                         )) {
-                        //listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
-                        dgvRecords.DataSource = listCarReports;
+                        //_carreports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dgvRecords.DataSource = _carreports;
                     }
                     //コンボボックスの履歴をすべて消す
                     cbAuthor.Items.Clear();
@@ -293,7 +318,7 @@ namespace CarReportSystem {
 
 
                     //コンボボックスの履歴を再登録
-                    foreach (var report in listCarReports) {
+                    foreach (var report in _carreports) {
                         SetCbAuthor(report.Author);
                         SetCbCarName(report.CarName);
                     }
@@ -306,10 +331,33 @@ namespace CarReportSystem {
                 }
             }
         }
+        //sqlite read carreports
+        private void ReloadCarReports() {
+            _carreports.Clear();
+            //コンボボックスの履歴を削除
+            cbAuthor.Items.Clear();
+            cbCarName.Items.Clear();
+            foreach (var carReport in _repository.GetAll()) {
+                _carreports.Add(carReport);
+                //コンボボックスに入力履歴を登録
+                SetCbAuthor(carReport.Author);
+                SetCbCarName(carReport.CarName);
+            }
+            dgvRecords.ClearSelection();
+        }
 
-        
 
-        
+
+        //エラー表示
+        private void ShowError(string title, Exception ex) {
+            tssIbMessage.Text = title;
+            MessageBox.Show(
+                ex.Message,
+                title,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
+
     }
 }
 
