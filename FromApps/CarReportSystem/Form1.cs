@@ -122,6 +122,7 @@ namespace CarReportSystem {
 
         }
 
+
         //記録者の入力履歴をコンボボックスへ登録
         private void SetCbAuthor(string author) {
             //使用するキーワード
