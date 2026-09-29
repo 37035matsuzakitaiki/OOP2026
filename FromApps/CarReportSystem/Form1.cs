@@ -65,8 +65,7 @@ namespace CarReportSystem {
             if (rbSubaru.Checked)
                 return MakerGroup.スバル;
                 return MakerGroup.日産;
-            if (rbImport.Checked)
-                return MakerGroup.その他;
+           
 
             return MakerGroup.その他;
 
@@ -282,15 +281,13 @@ namespace CarReportSystem {
         private void reportSaveFile() {
             if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
                 try {
-                    //バイナリ形式でシリアル化
-#pragma warning disable SYSLIB0011
-                    var bf = new BinaryFormatter();
-#pragma warning restore SYSLIB0011
+                    //                    
                     //using (FileStream fs = File.Open(sfdReportFileSave.FileName, FileMode.Create)) {
                     //    bf.Serialize(fs, _carreports);
                     //}
 
-
+                    cbAuthor.Items.Clear();
+                    cbCarName.Items.Clear();
                 }
                 catch (Exception ex) {
                     tssIbMessage.Text = "ファイル書き出しエラー";
@@ -302,16 +299,12 @@ namespace CarReportSystem {
         private void reportOpenFile() {
             if (ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
                 try {
-                    //逆シリアル化でバイナリ形式を取り込む
-#pragma warning disable SYSLIB0011
-                    var bf = new BinaryFormatter();
-#pragma warning restore SYSLIB0011
+//                   
                     using (FileStream fs = File.Open(
                         ofdReportFileOpen.FileName, //ファイル名
                         FileMode.Open, //ファイルモード
                         FileAccess.Read //ファイルアクセス
                         )) {
-                        //_carreports = (BindingList<CarReport>)bf.Deserialize(fs);
                         dgvRecords.DataSource = _carreports;
                     }
                     //コンボボックスの履歴をすべて消す

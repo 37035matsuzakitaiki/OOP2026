@@ -8,8 +8,7 @@ namespace CarReportSystem {
         [STAThread]
         static void Main() {
             ApplicationConfiguration.Initialize();
-            Database.Initialize();
-            Application.Run(new Form1());
+            
             try {
                 // SQLiteデータベースを初期化する
                 // carreports.db が存在しない場合は作成され
