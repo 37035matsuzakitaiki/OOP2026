@@ -1,16 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;  
-
+﻿using Microsoft.AspNetCore.Mvc;
+using MvcBasicSample.Models;
 
 namespace MvcBasicSample.Controllers; 
 
 //URLのHelloに対応する要求を受け取るController    
 public class HelloController :Controller{
 
-    // ,,/Hello/Indexで呼び出されるAction
+    // ../Hello/IndexでよびだされるＡｃｔｉｏｎ
     public IActionResult Index() {
-        //Viewを使用せず文字列をHTTPの応答として返す
-        //return Content("初めてのASP.NET Core");
-        return View();
+        var product = new List<Product>
+        {
+        new Product
+         {
+        //商品１件のオブジェクト
+        Name = "ハンバーガー",
+        Price = 500
+    },
+        new Product
+    {
+        //商品2件のオブジェクト
+        Name = "紅茶",
+        Price = 450
+    }
+    };
+        //Viewを使用せずHTTPとして応答する
+        //return Content("はじめてのASP.NEET Core");
+        return View(product);
     }
 }
 
