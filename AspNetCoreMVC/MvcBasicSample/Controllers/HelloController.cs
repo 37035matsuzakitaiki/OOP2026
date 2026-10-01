@@ -21,6 +21,18 @@ public class HelloController :Controller{
         //商品2件のオブジェクト
         Name = "紅茶",
         Price = 450
+    },
+        new Product
+    {
+        //商品2件のオブジェクト
+        Name = "ONITYA",
+        Price = 180
+    },
+        new Product
+    {
+        //商品2件のオブジェクト
+        Name = "辛みそきん",
+        Price = 350
     }
     };
         //Viewを使用せずHTTPとして応答する
