@@ -21,10 +21,10 @@
     @foreach(var product in Model)
     {
         <li>@product.Name @product.Price</li>
-        sum += product.Price;
+        sum += @product.Price;
     }
 </ul>
-<p>合計金額:@sum 円</p>
+<p>合計金額:@sum</p>
 
 <h1>購入内容</h1>
 <p>@productName1：@price1 円</p>
