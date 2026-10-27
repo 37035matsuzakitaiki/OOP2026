@@ -16,4 +16,5 @@ namespace DistanceConverter;
         public double FromMeter(double meter) => meter / Ratio;
         //メートルへの変換
         public double ToMeter(double feet) => feet * Ratio;
+        
     }
