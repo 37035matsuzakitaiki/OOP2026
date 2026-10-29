@@ -16,19 +16,11 @@ namespace Exercise03 {
             _service.Initialize(filename);
             var lines = File.ReadLines(filename);
             foreach (var line in lines) {
-                _service.Execute(line);
+                if (!_service.Execute(line)) {
+                    break;
+                }
             }
             _service.Terminate();
-
-
-            //foreach (var line in lines) {
-            //    for (int i = 0; i < 20; i++) {
-            //        _service.Execute(line);
-            //    }
-            //    Console.WriteLine(line);
-            //}
-
-            //_service.Terminate();
         }
     }
 }
