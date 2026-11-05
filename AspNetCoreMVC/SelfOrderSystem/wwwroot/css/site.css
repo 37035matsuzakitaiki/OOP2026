@@ -1,22 +1,32 @@
-html {
-  font-size: 14px;
+/* ===================================
+   COCOS STYLE THEME
+=================================== */
+
+:root {
+    --cocos-red: #c62828;
+    --cocos-orange: #f57c00;
+    --cocos-cream: #fffaf0;
+    --cocos-brown: #6d4c41;
+    --cocos-light-brown: #efebe9;
+    --cocos-border: #d7ccc8;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* 全体 */
 body {
-  margin-bottom: 60px;
+    background-color: var(--cocos-cream);
+    font-family: "Yu Gothic UI", sans-serif;
+    color: #333;
 }
+
+/* ヘッダー */
+.navbar {
+    background: linear-gradient( 90deg, var(--cocos-red), var(--cocos-orange) ) !important;
+}
+
+.navbar-brand,
+.nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+
+    .nav-link:hover
