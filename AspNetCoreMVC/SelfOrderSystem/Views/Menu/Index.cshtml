@@ -47,6 +47,21 @@
                         <span class="badge text-bg-secondary">売り切れ</span>
                     @**@}
 
+
+
+                    @if (!string.IsNullOrWhiteSpace(product.ImagePath)) {
+                        <img src="@Url.Content(product.ImagePath)"
+                             class="so-product-photo"
+                             alt="@product.Name"
+                             loading="lazy" />
+                    } else {
+                        <div class="so-product-photo so-product-photo--empty">
+                            写真準備中
+                        </div>
+                    }
+
+
+
                     <form asp-controller="Cart" asp-action="Add" method="post">
                         <input type="hidden" name="productId" value="@product.Id" />
 
