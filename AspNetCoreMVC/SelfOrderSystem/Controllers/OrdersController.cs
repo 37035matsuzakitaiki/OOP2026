@@ -12,11 +12,14 @@ public class OrdersController : Controller
 {
     private readonly AppDbContext _db;      // 商品と注文のDB操作 
     private readonly CartService _cart;    // Session内のカート操作 
+    private readonly IOrderService _orderService; //注文の検証と保存を担当するService
 
-    public OrdersController(AppDbContext db, CartService cart)
+    public OrdersController(AppDbContext db, CartService cart,IOrderService orderService)
     {
         _db = db;
         _cart = cart;
+        _orderService = orderService;
+
     }
 
     [HttpGet]
@@ -35,8 +38,8 @@ public class OrdersController : Controller
     public async Task<IActionResult> Place(CheckoutViewModel model)
     {
         var cartItems = _cart.GetItems(); // Sessionを再取得 
-        if (cartItems.Count == 0)
-            ModelState.AddModelError("", "カートが空です");
+        //if (cartItems.Count == 0)
+        //    ModelState.AddModelError("", "カートが空です");
 
         var ids = cartItems.Select(x => x.ProductId).Distinct().ToList();
         var products = await _db.Products.AsNoTracking()
@@ -64,18 +67,30 @@ public class OrdersController : Controller
             return View("Checkout", model);
         }
 
-        var order = new Order
-        {
+        //注文処理をServiceへ依頼
+        var result = await _orderService.PlaceAsync(cartItems,model.TableNumber);
+
+        //エラーかチェック
+        if (!result.IsSuccess) {
+            foreach (var error in result.Errors) {
+                ModelState.AddModelError("", error);
+            }
+            model.Items = cartItems;
+            return View("Checkout", model);
+        }
+
+
+
+
+        var order = new Order {
             PublicId = Guid.NewGuid(),
             TableNumber = model.TableNumber,
             OrderedAtUtc = DateTimeOffset.UtcNow,
             Status = OrderStatus.New
         };
-        foreach (var item in cartItems)
-        {
+        foreach (var item in cartItems) {
             var product = products[item.ProductId];
-            order.Items.Add(new OrderItem
-            {
+            order.Items.Add(new OrderItem {
                 ProductId = product.Id,
                 Quantity = item.Quantity,
                 UnitPrice = product.Price // 注文確定時のDB価格を保存 

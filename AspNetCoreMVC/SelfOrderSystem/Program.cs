@@ -29,6 +29,7 @@ builder.Services.AddScoped<CartService>();// CartServiceをDIへ登録しControllerで
 
 
 
+builder.Services.AddScoped<IOrderService, OrderService>();  //サービス層を作成したことによる追加
 
 
 
