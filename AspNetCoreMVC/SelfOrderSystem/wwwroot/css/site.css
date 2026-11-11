@@ -1,73 +1,118 @@
-/* ===================================
-   POKEMON CENTER STYLE THEME
-=================================== */
+/* ===== Pokemon Center Simple ===== */
 
 :root {
-    --pokemon-red: #ef5350;
-    --pokemon-blue: #42a5f5;
-    --pokemon-yellow: #ffca28;
-    --pokemon-green: #66bb6a;
-    --pokemon-bg: #f8fafc;
-    --pokemon-card: #ffffff;
-    --pokemon-border: #dbe4ee;
+    --poke-red: #ef5350;
+    --poke-blue: #42a5f5;
+    --poke-bg: #f8fafc;
 }
 
 /* 全体 */
 body {
-    background-color: var(--pokemon-bg);
+    background-color: var(--poke-bg);
     font-family: "Yu Gothic UI", sans-serif;
-    color: #333;
 }
 
-/* ナビゲーション */
+/* ヘッダー */
 .navbar {
-    background: white !important;
-    border-bottom: 4px solid var(--pokemon-red);
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    background-color: white !important;
+    border-bottom: 3px solid var(--poke-red);
 }
 
-.navbar-brand {
-    color: var(--pokemon-red) !important;
-    font-weight: 900;
-    font-size: 1.4rem;
-}
-
+.navbar-brand,
 .nav-link {
-    color: #555 !important;
+    color: #333 !important;
     font-weight: bold;
 }
 
-    .nav-link:hover {
-        color: var(--pokemon-red) !important;
-    }
+.navbar-brand {
+    color: var(--poke-red) !important;
+}
 
 /* 見出し */
 h1, h2, h3, h4 {
-    color: var(--pokemon-red);
-    font-weight: 800;
+    color: var(--poke-red);
+    font-weight: bold;
 }
 
-/* メニューカード */
+/* カード */
 .card {
-    background: var(--pokemon-card);
-    border: 2px solid var(--pokemon-border);
-    border-radius: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
     transition: 0.2s;
-    overflow: hidden;
 }
 
     .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0,0,0,.12);
+        box-shadow: 0 4px 12px rgba(0,0,0,.08);
     }
 
-/* 画像 */
+/* 商品画像 */
 .card-img-top {
-    height: 220px;
+    height: 200px;
     object-fit: cover;
 }
 
 /* 商品名 */
 .card-title {
+    font-weight: bold;
     color: #333;
-    font-weight
+}
+
+/* 価格 */
+.price {
+    color: var(--poke-red);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* ボタン */
+.btn-primary {
+    background-color: var(--poke-red);
+    border-color: var(--poke-red);
+    border-radius: 20px;
+}
+
+    .btn-primary:hover {
+        background-color: #e53935;
+        border-color: #e53935;
+    }
+
+/* テーブル */
+.table thead {
+    background-color: var(--poke-blue);
+    color: white;
+}
+
+/* 注文パネル */
+.order-panel {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+/* 合計金額 */
+.total-area {
+    background: white;
+    border-left: 5px solid var(--poke-red);
+    padding: 15px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* フッター */
+footer {
+    background: white;
+    border-top: 1px solid #ddd;
+}
+/* フッターとかぶらないようにする */
+body {
+    padding-bottom: 60px;
+}
+
+/* フッターを下部に配置 */
+.footer {
+    position: relative;
+    width: 100%;
+    margin-top: 30px;
+}
