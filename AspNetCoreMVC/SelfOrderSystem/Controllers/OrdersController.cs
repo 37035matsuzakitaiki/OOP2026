@@ -79,9 +79,16 @@ public class OrdersController : Controller
             return View("Checkout", model);
         }
 
+        //注文成功時のPublicIDをSectionに保存
+        HttpContext.Session.SetString(
+                                      "LastOrderPublicId",
+                                      result.PublicId!.Value.ToString()
+                                      );
 
+        _cart.Clear();
+        return RedirectToAction(nameof(Complete), new { id = result.PublicId });
 
-
+        
         var order = new Order {
             PublicId = Guid.NewGuid(),
             TableNumber = model.TableNumber,
@@ -124,4 +131,19 @@ public class OrdersController : Controller
             .ThenInclude(i => i.Product)
             .SingleOrDefaultAsync(o => o.PublicId == publicId);
     }
+
+    //同じブラウザで最後に確定した注文を開く
+    public IActionResult MyOrder() {
+        var publicId = HttpContext.Session.GetString("LastOrderPublicId");
+
+        if(!Guid.TryParse(publicId,out var id)) {
+            return RedirectToAction("Index", "Menu");
+        }
+        return RedirectToAction(nameof(Status), new { id });
+    }
+
+
+
+
+
 }
