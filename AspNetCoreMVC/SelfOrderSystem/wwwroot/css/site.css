@@ -116,3 +116,11 @@ body {
     width: 100%;
     margin-top: 30px;
 }
+
+/*PCではカートをスクロールに追従させる*/
+@media (min-width: 992px){
+     .so-cart-sidebar{
+        position: sticky;
+        top: 90px;
+     }
+}
