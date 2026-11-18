@@ -1,4 +1,6 @@
-﻿namespace SelfOrderSystem.Models;
+﻿using System.Drawing;
+
+namespace SelfOrderSystem.Models;
 
 public class CartItem                                       // カート内の1商品を表す一時データ 
 {
@@ -6,5 +8,6 @@ public class CartItem                                       // カート内の1�
     public string ProductName { get; set; } = string.Empty;      // 商品名 
     public decimal UnitPrice { get; set; }                       // 単価 
     public int Quantity { get; set; }                            // 数量 
+    public Image Picture { get; set; }
     public decimal LineTotal => UnitPrice * Quantity;            // 小計 
 }
