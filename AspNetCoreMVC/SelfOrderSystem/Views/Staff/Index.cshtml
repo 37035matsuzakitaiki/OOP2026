@@ -56,6 +56,11 @@
                 var total = order.Items.Sum(
                 i => i.UnitPrice * i.Quantity);
 
+                // 注文日時を日本時間へ変換
+                var japanTime = TimeZoneInfo.ConvertTime(
+                order.OrderedAtUtc,
+                TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time"));
+
                 <article class="staff-order-card">
 
                     @* 卓番・注文ID・注文時刻 *@
@@ -72,8 +77,7 @@
                                 </div>
 
                                 <time class="staff-order-time">
-                                    @order.OrderedAtUtc.ToLocalTime()
-                                    .ToString("yyyy/MM/dd HH:mm")
+                                    @japanTime.ToString("yyyy/MM/dd HH:mm")
                                 </time>
                             </div>
                         </div>
@@ -81,10 +85,10 @@
                         @* 現在の注文状態 *@
                         <span class="staff-status
                                     @(order.Status == OrderStatus.Served
-                                                              ? "staff-status-served"
-                                                              : order.Status == OrderStatus.Cooking
-                                                                  ? "staff-status-cooking"
-                                                                  : "staff-status-new")">
+                                           ? "staff-status-served"
+                                           : order.Status == OrderStatus.Cooking
+                                           ? "staff-status-cooking"
+                                           : "staff-status-new")">
                     @order.Status.ToJapanese()
                 </span>
             </div>
@@ -162,8 +166,9 @@
         });
         // 再接続後も表示内容を更新する
         staffConnection.onreconnected(() => window.location.reload());
-        staffConnection.start().catch(error => {
-            console.error("店舗 SignalR 接続エラー", error);
-        });
+
+        staffConnection.start()
+                       .then(() => staffConnection.invoke("JoinStaff"))
+                       .catch(error => console.error("店舗 SignalR 接続エラー", error));
     </script>
 }

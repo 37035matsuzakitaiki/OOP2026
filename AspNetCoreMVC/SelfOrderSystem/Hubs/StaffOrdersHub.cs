@@ -6,5 +6,15 @@ public class StaffOrdersHub : Hub {
     public async Task JoinOrder(string publicId) {
         if (!Guid.TryParse(publicId, out var id))
             throw new HubException("注文 ID が正しくありません");
+        //同じ注文IDのブラウザを同じグループへ登録
+        await Groups.AddToGroupAsync(
+            Context.ConnectionId,$"order-{id:N}");
+    }
+
+    // スタッフ権限のある接続だけ専用グループへ参加 
+    public async Task JoinStaff() {
+        if (Context.User?.IsInRole("Staff") != true)
+            throw new HubException("スタッフ認証が必要です");
+        await Groups.AddToGroupAsync(Context.ConnectionId, "staff");
     }
 }

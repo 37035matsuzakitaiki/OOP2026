@@ -85,13 +85,15 @@ public class OrderService : IOrderService   // IOrderServiceで定義した処�
             });
         }
 
-        _db.Orders.Add(order);             // 注文と明細を保存対象に 
+        _db.Orders.Add(order);              // 注文と明細を保存対象に 
         await _db.SaveChangesAsync();      // SQL Serverの保存完了を待つ 
         result.PublicId = order.PublicId; // 完了画面で使うID 
 
         try {
             //店舗画面へ更新の合図を送る
-            await _hubContext.Clients.All.SendAsync("OrdersChanged");
+            //await _hubContext.Clients.All.SendAsync("OrdersChanged");
+            await _hubContext.Clients.Group("staff")
+                                     .SendAsync("OrdersChanged");
         }
         catch (Exception ex) {
             _logger.LogWarning(ex, "注文一覧への通知に失敗");
